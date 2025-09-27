@@ -1,0 +1,116 @@
+body{
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+}
+section{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+}
+.GojoBox{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 5%;
+    background-color: aliceblue;
+    border-radius: 50px;
+}
+.GojoSatoru{
+    font-family: Prompt, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 100px;
+    text-align: center;
+    background: -webkit-linear-gradient(#89f7fe, #66a6ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+img.Gojo{
+    border-radius: 100%;
+    border-width: 50px; 
+    width: 500px;
+    height: 500px;
+    display: block;
+    margin: 0 auto;         
+}
+.GojoText{
+    font-family: Prompt, sans-serif;
+    font-size: 16px;
+    text-align: center  ;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.ItadoriBox{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 1%;
+    background-color: brown;
+    border-radius: 50px;
+}
+.ItadoriYuji{
+    font-family: Prompt, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 100px;
+    text-align: center;
+    background: -webkit-linear-gradient(#ff9a9a, #110606);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+img.Itadori{
+    border-radius: 100%;
+    border-width: 50px; 
+    width: 500px;
+    height: 500px;
+    display: block;
+    margin: 0 auto;         
+}
+.ItadoriText{
+    font-family: Prompt, sans-serif;
+    font-size: 16px;
+    text-align: center  ;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+.OkkotsuBox{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 1%;
+    background-color: rgb(136, 143, 146);
+    border-radius: 50px;
+}
+.OkkotsuYuta{
+    font-family: Prompt, sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 100px;
+    text-align: center;
+    background: -webkit-linear-gradient(#413d39, #010101);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+img.Okkotsu{
+    border-radius: 100%;
+    border-width: 50px; 
+    width: 500px;
+    height: 500px;
+    display: block;
+    margin: 0 auto;         
+}
+.OkkotsuText{
+    font-family: Prompt, sans-serif;
+    font-size: 16px;
+    text-align: center  ;
+    margin-left: 200px;
+    margin-right: 200px;
+    margin-bottom: 5%;
+}
+.footerText{
+    font-family: Prompt, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    color:white;
+    margin-bottom: 20px;
+}
