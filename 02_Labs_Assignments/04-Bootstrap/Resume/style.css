@@ -1,0 +1,92 @@
+/* Global styles for Resume */
+:root {
+	--navbar-height: 56px; /* default bootstrap navbar height */
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	padding-top: var(--navbar-height);
+	font-family: "Prompt", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Thai", "Noto Sans", sans-serif;
+}
+
+.section-block {
+	padding: 3rem 0;
+}
+
+.section-title {
+	margin-bottom: 1.25rem;
+	font-weight: 700;
+}
+
+/* Profile image: keep perfect circle and cover */
+.profile-img {
+	object-fit: cover;
+	object-position: center;
+}
+
+/* Ensure anchor jump positions are not hidden under fixed navbar */
+section[id] {
+	scroll-margin-top: calc(var(--navbar-height) + 16px);
+}
+
+/* Timeline simple style */
+.timeline {
+	position: relative;
+	margin-left: 0.75rem;
+	padding-left: 1rem;
+}
+
+.timeline::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.2rem;
+	bottom: 0.2rem;
+	width: 2px;
+	background: rgba(0, 0, 0, 0.15);
+}
+
+.timeline-item {
+	position: relative;
+	margin-bottom: 1.25rem;
+}
+
+.timeline-dot {
+	/* hide timeline dots */
+	display: none;
+}
+
+/* Email inline image alignment */
+.email img {
+	width: 16px;
+	height: 16px;
+}
+
+/* HR spacing */
+hr {
+	margin: 1.5rem 0;
+	opacity: 0.2;
+}
+
+/* Prompt font utility classes (as provided) */
+.prompt-thin { font-family: "Prompt", sans-serif; font-weight: 100; font-style: normal; }
+.prompt-extralight { font-family: "Prompt", sans-serif; font-weight: 200; font-style: normal; }
+.prompt-light { font-family: "Prompt", sans-serif; font-weight: 300; font-style: normal; }
+.prompt-regular { font-family: "Prompt", sans-serif; font-weight: 400; font-style: normal; }
+.prompt-medium { font-family: "Prompt", sans-serif; font-weight: 500; font-style: normal; }
+.prompt-semibold { font-family: "Prompt", sans-serif; font-weight: 600; font-style: normal; }
+.prompt-bold { font-family: "Prompt", sans-serif; font-weight: 700; font-style: normal; }
+.prompt-extrabold { font-family: "Prompt", sans-serif; font-weight: 800; font-style: normal; }
+.prompt-black { font-family: "Prompt", sans-serif; font-weight: 900; font-style: normal; }
+.prompt-thin-italic { font-family: "Prompt", sans-serif; font-weight: 100; font-style: italic; }
+.prompt-extralight-italic { font-family: "Prompt", sans-serif; font-weight: 200; font-style: italic; }
+.prompt-light-italic { font-family: "Prompt", sans-serif; font-weight: 300; font-style: italic; }
+.prompt-regular-italic { font-family: "Prompt", sans-serif; font-weight: 400; font-style: italic; }
+.prompt-medium-italic { font-family: "Prompt", sans-serif; font-weight: 500; font-style: italic; }
+.prompt-semibold-italic { font-family: "Prompt", sans-serif; font-weight: 600; font-style: italic; }
+.prompt-bold-italic { font-family: "Prompt", sans-serif; font-weight: 700; font-style: italic; }
+.prompt-extrabold-italic { font-family: "Prompt", sans-serif; font-weight: 800; font-style: italic; }
+.prompt-black-italic { font-family: "Prompt", sans-serif; font-weight: 900; font-style: italic; }

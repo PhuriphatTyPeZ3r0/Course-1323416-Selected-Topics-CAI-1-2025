@@ -1,0 +1,15 @@
+body {
+  font-family: 'Prompt', sans-serif;
+}
+.pink-title {
+  color:pink;
+}
+.to-purple {
+  color:purple;
+  animation-delay: 500ms;
+}
+.button {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}

@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register — Create your account</title>
+    <meta name="description" content="Create a new account to get started.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #7c3aed;
+            --primary-light: #a78bfa;
+            --secondary: #06b6d4;
+            --accent: #f472b6;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --text: #f1f5f9;
+            --text-muted: rgba(241, 245, 249, 0.55);
+            --input-bg: rgba(255, 255, 255, 0.07);
+            --input-border: rgba(255, 255, 255, 0.15);
+            --input-focus: rgba(167, 139, 250, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f0a1e;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ── Liquid blob background ── */
+        .blobs {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.55;
+            animation: drift linear infinite;
+        }
+
+        .blob-1 {
+            width: 520px;
+            height: 520px;
+            background: radial-gradient(circle, #7c3aed, #4f46e5);
+            top: -160px;
+            left: -160px;
+            animation-duration: 18s;
+        }
+
+        .blob-2 {
+            width: 420px;
+            height: 420px;
+            background: radial-gradient(circle, #06b6d4, #0ea5e9);
+            bottom: -120px;
+            right: -120px;
+            animation-duration: 22s;
+            animation-delay: -6s;
+        }
+
+        .blob-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #f472b6, #e879f9);
+            top: 40%;
+            left: 60%;
+            animation-duration: 15s;
+            animation-delay: -10s;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            25% {
+                transform: translate(40px, -30px) scale(1.05);
+            }
+
+            50% {
+                transform: translate(20px, 50px) scale(0.97);
+            }
+
+            75% {
+                transform: translate(-30px, 20px) scale(1.03);
+            }
+
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+        }
+
+        /* ── Floating particles ── */
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(167, 139, 250, 0.6);
+            animation: float-up linear infinite;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* ── Glass card ── */
+        .card-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 460px;
+            padding: 16px;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 28px;
+            padding: 44px 40px 40px;
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            animation: card-enter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        @keyframes card-enter {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ── Header ── */
+        .card-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+
+        .logo-ring {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 0 24px rgba(124, 58, 237, 0.5);
+            margin-bottom: 18px;
+            animation: pulse-ring 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-ring {
+
+            0%,
+            100% {
+                box-shadow: 0 0 24px rgba(124, 58, 237, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(124, 58, 237, 0.85), 0 0 60px rgba(6, 182, 212, 0.35);
+            }
+        }
+
+        .logo-ring svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+        }
+
+        .card-header h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .card-header p {
+            margin-top: 6px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* ── Floating label fields ── */
+        .field-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .field {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .field-group .field {
+            margin-bottom: 0;
+        }
+
+        .field label {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%);
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            pointer-events: none;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+            padding: 0 4px;
+        }
+
+        .field input {
+            width: 100%;
+            padding: 16px 16px 6px;
+            background: var(--input-bg);
+            border: 1px solid var(--input-border);
+            border-radius: 14px;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+            height: 58px;
+        }
+
+        /* Float the label when focused or filled */
+        .field input:focus+label,
+        .field input:not(:placeholder-shown)+label {
+            top: 12px;
+            transform: translateY(0);
+            font-size: 0.72rem;
+            color: var(--primary-light);
+            font-weight: 600;
+            letter-spacing: 0.03em;
+        }
+
+        .field input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px var(--input-focus), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .field input::placeholder {
+            color: transparent;
+        }
+
+        /* Password toggle */
+        .field .toggle-pw {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            padding: 4px;
+        }
+
+        .field .toggle-pw:hover {
+            color: var(--primary-light);
+        }
+
+        .field .toggle-pw svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* ── Divider ── */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 6px 0 20px;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--glass-border);
+        }
+
+        /* ── Submit button ── */
+        .btn-register {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--primary) 0%, #6d28d9 50%, var(--secondary) 100%);
+            background-size: 200% 100%;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            transition: background-position 0.4s ease, transform 0.15s, box-shadow 0.3s;
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.45);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-register::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), transparent);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .btn-register:hover {
+            background-position: 100% 0;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(124, 58, 237, 0.6);
+        }
+
+        .btn-register:hover::after {
+            opacity: 1;
+        }
+
+        .btn-register:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Loading ripple on click */
+        .btn-register.loading {
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        /* ── Footer link ── */
+        .card-footer {
+            text-align: center;
+            margin-top: 22px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .card-footer a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .card-footer a:hover {
+            color: #c4b5fd;
+            text-decoration: underline;
+        }
+
+        /* ── Success overlay ── */
+        .success-overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            border-radius: 28px;
+            background: rgba(15, 10, 30, 0.85);
+            backdrop-filter: blur(8px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            z-index: 20;
+            animation: fade-in 0.4s ease;
+        }
+
+        .success-overlay.show {
+            display: flex;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .check-circle {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 32px rgba(16, 185, 129, 0.6);
+            animation: pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes pop {
+            from {
+                transform: scale(0);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .check-circle svg {
+            width: 36px;
+            height: 36px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2.5;
+        }
+
+        .success-overlay p {
+            color: var(--text);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .success-overlay span {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Blobs -->
+    <div class="blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Card -->
+    <div class="card-wrapper">
+        <div class="card" style="position:relative;">
+
+            <!-- Success overlay -->
+            <div class="success-overlay" id="successOverlay">
+                <div class="check-circle">
+                    <svg viewBox="0 0 24 24">
+                        <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                </div>
+                <p>Account Created!</p>
+                <span>Redirecting you shortly…</span>
+            </div>
+
+            <!-- Header -->
+            <div class="card-header">
+                <div class="logo-ring">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+                    </svg>
+                </div>
+                <h1>Create Account</h1>
+                <p>Fill in the details below to get started</p>
+            </div>
+
+            <!-- Form -->
+            <form method="post" action="/students" id="registerForm" novalidate>
+
+                <!-- First & Last Name -->
+                <div class="field-group">
+                    <div class="field">
+                        <input type="text" id="first_name" name="first_name" placeholder="First name" required
+                            autocomplete="given-name">
+                        <label for="first_name">First Name</label>
+                    </div>
+                    <div class="field">
+                        <input type="text" id="last_name" name="last_name" placeholder="Last name" required
+                            autocomplete="family-name">
+                        <label for="last_name">Last Name</label>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="field">
+                    <input type="email" id="email" name="email" placeholder="Email address" required
+                        autocomplete="email">
+                    <label for="email">Email Address</label>
+                </div>
+
+                <!-- Password -->
+                <div class="field">
+                    <input type="password" id="password" name="password" placeholder="Password" required
+                        autocomplete="new-password" style="padding-right: 48px;">
+                    <label for="password">Password</label>
+                    <button type="button" class="toggle-pw" id="togglePw" aria-label="Toggle password visibility">
+                        <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </button>
+                </div>
+
+                <button type="submit" class="btn-register" id="submitBtn">
+                    Create Account
+                </button>
+            </form>
+
+            <div class="card-footer">
+                Already have an account? <a href="/login">Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ── Particle generator ──
+        (function () {
+            const container = document.getElementById('particles');
+            const count = 28;
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 4 + 2;
+                p.style.cssText = `
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${Math.random() * 100}%;
+                    animation-duration: ${Math.random() * 12 + 8}s;
+                    animation-delay: ${Math.random() * -20}s;
+                    opacity: ${Math.random() * 0.6 + 0.2};
+                    background: hsl(${Math.random() * 60 + 240}, 80%, 70%);
+                `;
+                container.appendChild(p);
+            }
+        })();
+
+        // ── Password toggle ──
+        const togglePw = document.getElementById('togglePw');
+        const pwInput = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        const eyeOpen = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+        const eyeClose = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+
+        togglePw.addEventListener('click', () => {
+            const isPassword = pwInput.type === 'password';
+            pwInput.type = isPassword ? 'text' : 'password';
+            eyeIcon.innerHTML = isPassword ? eyeClose : eyeOpen;
+        });
+
+        // ── Form submit with animation ──
+        const form = document.getElementById('registerForm');
+        const btn = document.getElementById('submitBtn');
+        const overlay = document.getElementById('successOverlay');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Basic validation
+            const inputs = form.querySelectorAll('input[required]');
+            let valid = true;
+            inputs.forEach(inp => {
+                if (!inp.value.trim()) {
+                    inp.style.borderColor = '#f87171';
+                    inp.addEventListener('input', () => inp.style.borderColor = '', { once: true });
+                    valid = false;
+                }
+            });
+            if (!valid) return;
+
+            btn.classList.add('loading');
+            btn.textContent = 'Creating account…';
+
+            try {
+                const data = new FormData(form);
+                const body = Object.fromEntries(data.entries());
+
+                const res = await fetch('/students', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body),
+                });
+
+                if (res.ok) {
+                    overlay.classList.add('show');
+                } else {
+                    throw new Error('Server error');
+                }
+            } catch (err) {
+                // Fallback: submit the form normally
+                form.submit();
+            }
+        });
+    </script>
+</body>
+
+</html>

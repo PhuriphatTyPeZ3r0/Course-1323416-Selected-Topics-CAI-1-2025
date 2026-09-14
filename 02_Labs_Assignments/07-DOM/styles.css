@@ -1,0 +1,50 @@
+.toGreen {
+    background-color: green;
+}
+.invisible {
+    visibility: hidden;
+}
+.toRed {
+    background-color: red;
+}
+.toBlue {
+    background-color: blue;
+}
+.toYellow {
+    background-color: yellow;
+}
+.toPink {
+    background-color: pink;
+}
+.toOrange {
+    background-color: orange;
+}
+.toPurple {
+    background-color: purple;
+}
+.toBlack {
+    background-color: black;
+    color: white;
+}
+.toWhite {
+    background-color: white;
+    color: black;
+}
+.toGray {
+    background-color: gray;
+}
+.toBrown {
+    background-color: brown;
+}
+.toCyan {
+    background-color: cyan;
+}
+.toMagenta {
+    background-color: magenta;
+}
+.toLime {
+    background-color: lime;
+}
+.upSizeh1 {
+    font-size: 10rem;
+}

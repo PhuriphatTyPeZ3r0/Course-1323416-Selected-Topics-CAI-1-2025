@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Directory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #080b14;
+            --surface: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 255, 255, 0.08);
+            --accent1: #6c63ff;
+            --accent2: #00d4ff;
+            --accent3: #ff6bab;
+            --text: #e8eaf0;
+            --muted: #6b7280;
+            --row-hover: rgba(108, 99, 255, 0.12);
+            --glow1: rgba(108, 99, 255, 0.35);
+            --glow2: rgba(0, 212, 255, 0.35);
+            --glow3: rgba(255, 107, 171, 0.25);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ─── Animated liquid blobs ─── */
+        .blob-wrap {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.55;
+            animation: drift 18s ease-in-out infinite alternate;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: var(--accent1);
+            top: -200px;
+            left: -150px;
+            animation-duration: 20s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--accent2);
+            bottom: -180px;
+            right: -120px;
+            animation-duration: 16s;
+            animation-delay: -6s;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent3);
+            top: 40%;
+            left: 50%;
+            animation-duration: 22s;
+            animation-delay: -11s;
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(60px, -80px) scale(1.08);
+            }
+
+            66% {
+                transform: translate(-50px, 50px) scale(0.96);
+            }
+
+            100% {
+                transform: translate(30px, -30px) scale(1.04);
+            }
+        }
+
+        /* ─── Noise texture overlay ─── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 1;
+        }
+
+        /* ─── Layout ─── */
+        .page {
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 64px 24px 80px;
+        }
+
+        /* ─── Header ─── */
+        .header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(108, 99, 255, 0.15);
+            border: 1px solid rgba(108, 99, 255, 0.35);
+            color: #a89dff;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 6px 16px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+        }
+
+        .header-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #6c63ff;
+            box-shadow: 0 0 8px #6c63ff;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .header h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #fff 30%, var(--accent2) 70%, var(--accent1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.15;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            color: var(--muted);
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        /* ─── Stats bar ─── */
+        .stats-bar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 140px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 18px 24px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(108, 99, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .stat-card .label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .stat-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent1), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ─── Glass table container ─── */
+        .table-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+                0 32px 80px rgba(0, 0, 0, 0.5),
+                0 0 120px rgba(108, 99, 255, 0.06);
+        }
+
+        /* ─── Table toolbar ─── */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 28px;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #c0c8e0;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 8px 14px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .search-box:focus-within {
+            border-color: rgba(108, 99, 255, 0.5);
+            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+        }
+
+        .search-box svg {
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: var(--text);
+            width: 180px;
+        }
+
+        .search-box input::placeholder {
+            color: var(--muted);
+        }
+
+        /* ─── Table ─── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            padding: 14px 28px;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+            color: var(--muted);
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        td {
+            padding: 16px 28px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #c8cfe0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: background 0.25s, transform 0.2s;
+        }
+
+        tbody tr:hover {
+            background: var(--row-hover);
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ─── Avatar chip ─── */
+        .name-cell {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            flex-shrink: 0;
+            letter-spacing: 0.03em;
+        }
+
+        /* ─── ID badge ─── */
+        .id-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            padding: 3px 10px;
+            background: rgba(108, 99, 255, 0.15);
+            border: 1px solid rgba(108, 99, 255, 0.25);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #a89dff;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ─── Email chip ─── */
+        .email-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--accent2);
+            opacity: 0.85;
+        }
+
+        /* ─── Date chip ─── */
+        .date-chip {
+            font-size: 12px;
+            color: var(--muted);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ─── Empty state ─── */
+        .empty-state {
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
+            background: rgba(108, 99, 255, 0.12);
+            border: 1px solid rgba(108, 99, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            color: var(--muted);
+        }
+
+        /* ─── Table footer ─── */
+        .table-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 28px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--muted);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .footer-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 8px #22c55e;
+            margin-right: 6px;
+            animation: pulse 2.5s ease-in-out infinite;
+        }
+
+        /* ─── Row fade-in animation ─── */
+        @keyframes rowIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        tbody tr {
+            animation: rowIn 0.35s ease both;
+        }
+
+        /* ─── Scrollbar ─── */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Liquid background blobs -->
+    <div class="blob-wrap">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="page">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-badge">
+                <span class="dot"></span>
+                Student Management System
+            </div>
+            <h1>Student Directory</h1>
+            <p>Browse, search, and manage all registered students in one place.</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-bar">
+            <div class="stat-card">
+                <div class="label">Total Students</div>
+                <div class="value">
+                    <%= students.length %>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Latest ID</div>
+                <div class="value">
+                    <%= students.length> 0 ? students[students.length - 1].id : '—' %>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Status</div>
+                <div class="value" style="font-size:18px; -webkit-text-fill-color:#22c55e; color:#22c55e;">Active</div>
+            </div>
+        </div>
+
+        <!-- Table card -->
+        <div class="table-wrap">
+
+            <!-- Toolbar -->
+            <div class="toolbar">
+                <span class="toolbar-title">All Students</span>
+                <div class="search-box">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                    <input id="searchInput" type="text" placeholder="Search students…"
+                        oninput="filterTable(this.value)" />
+                </div>
+            </div>
+
+            <!-- Table -->
+            <table id="studentTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Registered</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <% if (students.length> 0) { %>
+                        <% students.forEach(function(student, idx) { %>
+                            <% const colors=[ ['#6c63ff','#483ddb'], ['#00d4ff','#0099cc'], ['#ff6bab','#cc4488'],
+                                ['#ffb347','#cc8822'], ['#57e89e','#1fb870'], ['#c779d0','#9955aa'] ]; const
+                                c=colors[idx % colors.length]; const initials=(student.first_name.charAt(0) +
+                                student.last_name.charAt(0)).toUpperCase(); %>
+                                <tr data-name="<%= (student.first_name + ' ' + student.last_name + ' ' + student.email).toLowerCase() %>"
+                                    data-delay="<%= idx * 50 %>">
+                                    <td><span class="id-badge">#<%= student.id %></span></td>
+                                    <td>
+                                        <div class="name-cell">
+                                            <div class="avatar" data-color1="<%= c[0] %>" data-color2="<%= c[1] %>">
+                                                <%= initials %>
+                                            </div>
+                                            <%= student.first_name %>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <%= student.last_name %>
+                                    </td>
+                                    <td>
+                                        <span class="email-chip">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <rect x="2" y="4" width="20" height="16" rx="2" />
+                                                <polyline points="2,4 12,13 22,4" />
+                                            </svg>
+                                            <%= student.email %>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="date-chip">
+                                            <%= new Date(student.created_at).toLocaleString('en-GB', { day:'2-digit',
+                                                month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }) %>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <% }); %>
+                                    <% } else { %>
+                                        <tr>
+                                            <td colspan="5">
+                                                <div class="empty-state">
+                                                    <div class="empty-icon">🎓</div>
+                                                    <h3>No students yet</h3>
+                                                    <p>Register the first student to see them here.</p>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                </tbody>
+            </table>
+
+            <!-- Footer -->
+            <div class="table-footer">
+                <span><span class="footer-dot"></span>Live data · MySQL</span>
+                <span id="countLabel">
+                    <%= students.length %> record<%= students.length !==1 ? 's' : '' %> found
+                </span>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Apply dynamic styles from data attributes (avoids EJS-in-style linting errors)
+        document.querySelectorAll('#tableBody tr[data-delay]').forEach(row => {
+            row.style.animationDelay = row.dataset.delay + 'ms';
+        });
+        document.querySelectorAll('.avatar[data-color1]').forEach(el => {
+            el.style.background = 'linear-gradient(135deg, ' + el.dataset.color1 + ', ' + el.dataset.color2 + ')';
+        });
+
+        function filterTable(query) {
+            const q = query.toLowerCase().trim();
+            const rows = document.querySelectorAll('#tableBody tr[data-name]');
+            let visible = 0;
+            rows.forEach(row => {
+                const match = !q || row.dataset.name.includes(q);
+                row.style.display = match ? '' : 'none';
+                if (match) visible++;
+            });
+            document.getElementById('countLabel').textContent =
+                visible + ' record' + (visible !== 1 ? 's' : '') + ' found';
+        }
+    </script>
+
+</body>
+
+</html>
