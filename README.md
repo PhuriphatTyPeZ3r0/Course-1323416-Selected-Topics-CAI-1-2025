@@ -1,4 +1,4 @@
-﻿# 1323416 Selected Topics in CPE & AI 1: Full-Stack Web Development (หัวข้อคัดสรรทางวิศวกรรมคอมพิวเตอร์และปัญญาประดิษฐ์ 1)
+# 1323416 Selected Topics in CPE & AI 1: Full-Stack Web Development (หัวข้อคัดสรรทางวิศวกรรมคอมพิวเตอร์และปัญญาประดิษฐ์ 1)
 
 <div align="center">
 
@@ -42,7 +42,7 @@
 ## <img src="https://api.iconify.design/material-symbols:folder-open-outline.svg?color=%23F59E0B" width="22" height="22" align="center" /> 2. โครงสร้าง Repository (Standard Course Layout)
 
 ```text
-Course-Bootcamp-Fullstack-2025/
+Course-1323416-Selected-Topics-CPE-AI-1-2025/
 ├── 00_Templates/               # Template โน้ตสรุปและคู่มือ Markdown/Obsidian
 ├── 01_Lectures/                # เอกสารการสอน สไลด์บรรยาย และชีตสรุป
 ├── 02_Labs_Assignments/       # โค้ดแล็บ แบบฝึกหัด และเวิร์กช็อปภาคปฏิบัติ
