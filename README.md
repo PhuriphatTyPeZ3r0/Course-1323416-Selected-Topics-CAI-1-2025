@@ -97,12 +97,13 @@ Course-1323416-Selected-Topics-CPE-AI-1-2025/
 
 ## <img src="https://api.iconify.design/material-symbols:trophy-outline.svg?color=%23F59E0B" width="22" height="22" align="center" /> 5. โครงงานประจำรายวิชา (Course Projects)
 
-> โครงงานและแอปพลิเคชัน Full-Stack ที่พัฒนาขึ้นในรายวิชานี้ (เก็บอยู่ในโฟลเดอร์ `03_Projects/`)
+> โครงงานและเว็บแอปพลิเคชันที่พัฒนาขึ้นเพื่อการฝึกปฏิบัติในรายวิชา 1323416:
 
-### 🌐 Full-Stack Dynamic Web Application
-- **บทบาทและหน้าที่:** แอปพลิเคชันประมวลผลข้อมูลฝั่งเซิร์ฟเวอร์ ออกแบบตามสถาปัตยกรรม MVC (Model-View-Controller) รองรับการแสดงผลแบบไดนามิกและการจัดการฐานข้อมูล
-- **เทคโนโลยี:** `Node.js, Express.js, EJS, Bootstrap 5, REST API, MySQL`
-- **ซอร์สโค้ด:** [โฟลเดอร์โครงงาน](03_Projects/)
+| โครงงาน | หมวดหมู่ | เทคโนโลยีหลัก | ลิงก์คลังผลงาน (Showcase Repo) | ลิงก์เว็บไซต์ (Live Demo) |
+| :--- | :---: | :--- | :---: | :---: |
+| **Domain Expansion** | Front-End SPA | Vanilla JS (ES6+), Glassmorphism, 3D Transforms | [Web-JJK-Fansite-2026](https://github.com/PhuriphatTyPeZ3r0/Web-JJK-Fansite-2026) | [Live Demo](https://phuriphattypez3r0.github.io/Web-JJK-Fansite-2026/) |
+| **PlayMateZ** | Responsive Web | Bootstrap 5.3, JS ES6+, Booking Modal | [Web-PlayMateZ-Gaming-2026](https://github.com/PhuriphatTyPeZ3r0/Web-PlayMateZ-Gaming-2026) | [Live Demo](https://phuriphattypez3r0.github.io/Web-PlayMateZ-Gaming-2026/) |
+| **Full-Stack MVC App** | Backend & SSR | Node.js, Express, EJS, MySQL, REST API | [โฟลเดอร์โครงงาน](03_Projects/) | - |
 
 ---
 
