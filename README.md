@@ -1,4 +1,4 @@
-# 1323416 Selected Topics in CPE & AI 1: Full-Stack Web Development (หัวข้อคัดสรรทางวิศวกรรมคอมพิวเตอร์และปัญญาประดิษฐ์ 1)
+# 1323416 Selected Topics in CAI 1: Full-Stack Web Development (หัวข้อคัดสรรทางวิศวกรรมคอมพิวเตอร์และปัญญาประดิษฐ์ 1)
 
 <div align="center">
 
